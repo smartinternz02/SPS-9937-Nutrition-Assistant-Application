@@ -83,7 +83,7 @@ def logout():
 def upload_img():
     if request.method == 'POST':
         img = request.files['foodimg']
-        pathname = './static/uploads/'+session['email']+'.jpg'
+        pathname = './static/'+session['email']+'.jpg'
         img.save(pathname)
         # using ibm watson visualrecognition api to identify the fooditem
         authenticator = IAMAuthenticator(
