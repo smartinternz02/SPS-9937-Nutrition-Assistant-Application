@@ -1,10 +1,11 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, session
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
 import json
 import requests
 from ibm_watson import VisualRecognitionV3
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
+import hashlib
 
 app = Flask(__name__)
 app.config['MYSQL_HOST'] = 'remotemysql.com'
@@ -35,6 +36,9 @@ def uploaddata():
         cpword = request.form['confirmPassword']
         if pword == cpword:
             session["username"] = name
+            pword = hashlib.md5(pword.encode())
+            pword=pword.hexdigest()
+            print(pword)
             cursor = mysql.connection.cursor()
             cursor.execute(
                 'INSERT INTO userdetails VALUES (% s, % s, % s)', (name, email, pword))
@@ -53,8 +57,16 @@ def authenticate():
     if request.method == 'POST':
         email = request.form['emailaddress']
         pword = request.form['pword']
+        pword = hashlib.md5(pword.encode())
+        pword=pword.hexdigest()        
 
         cursor = mysql.connection.cursor()
+        cursor.execute('SELECT * FROM userdetails WHERE email= % s', (email,))
+        mysql.connection.commit()
+        userexist=cursor.fetchone()
+        if userexist==None:
+            msg='User with this Email doesn\'t exist. Please Sign-up before Login'
+            return render_template('login.html', msg=msg)
         cursor.execute(
             'SELECT * FROM userdetails WHERE email= % s and pword = % s', (email, pword))
         mysql.connection.commit()
@@ -72,6 +84,9 @@ def authenticate():
 def trackfood():
     return render_template('trackfood.html')
 
+@app.route('/termsconditions')
+def termsconditions():
+    return render_template('TermsConditions.html')
 
 @app.route('/logout')
 def logout():
@@ -108,7 +123,6 @@ def upload_img():
         nutrients = requests.get('https://api.nal.usda.gov/fdc/v1/foods/search?query={}&pageSize={}&api_key={}'.format(
             fooditem, '2', 'wNxP2RfBXrx3amU5HypuuEWUtSSgeRErZMcU5LFA'))
         data = json.loads(nutrients.text)
-        print(json.dumps(data, indent=2))
         allnutrients = []
         n = len(data['foods'][0]['foodNutrients'])
         allnutrients.append(fooditem.upper())
@@ -120,6 +134,14 @@ def upload_img():
                                 " "+data['foods'][0]['foodNutrients'][i]['unitName'])
         return render_template('trackfood.html', msg=allnutrients)
 
+@app.route('/mybmi')
+def mybmi():
+    return render_template('mybmi.html')
+
+
+@app.route('/nutrition')
+def nutrition():
+    return render_template('nutrition.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, port=8080)
