@@ -5,12 +5,14 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
     integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-<link rel="shortcut icon" type="image/x-icon" href="../static/nutribabalogonew.png">
+  <link rel="shortcut icon" type="image/x-icon" href="../static/nutribabalogonew.png">
   <title>NutriBABA</title>
+
+
 </head>
 
 <body>
@@ -18,39 +20,41 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-image: url('../static/navbg.png'); ">
     <header role="banner">
       <a href="#">
-        <img style="height: 100px; width: 120px; padding-right: 5%;" src="../static/nutribabalogonew.png" alt="YUMMEALS" />
+        <img style="height: 100px; width: 120px; padding-right: 5%;" src="../static/nutribabalogonew.png"
+          alt="YUMMEALS" />
       </a>
     </header>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+    <button style="background-color: white;" class="navbar-toggler" type="button" data-toggle="collapse"
+      data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+      aria-label="Toggle navigation">
+      <span style="background-color: white;" class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a style="color: white; font-size: 20px; margin-right: 10px;" class="nav-link" href="/">Home <span
+          <a style="color: white; font-size: 20px; margin-right: 10px;" class="nav-link" href="/">HOME <span
               class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a style="color: white; font-size: 20px; margin-right: 10px;" class="nav-link" href="/trackfood">Track-Food</a>
+          <a style="color: white; font-size: 20px; margin-right: 10px;" class="nav-link"
+            href="/trackfood">TRACK-FOOD</a>
         </li>
         <li class="nav-item">
-          <a style="color: white; font-size: 20px; margin-right: 10px;" class="nav-link" href="#">MyBMI</a>
+          <a style="color: white; font-size: 20px; margin-right: 10px;" class="nav-link" href="/mybmi">MY-BMI</a>
         </li>
       </ul>
 
       {% if session['email'] %}
       <a style="margin-right: 10px;" class="btn btn-primary" href="/logout" role="button">Logout</a>
-    
-      {% else %}
-        <a style="margin-right: 10px;" class="btn btn-primary" href="/login" role="button">Login</a>
-        <a style="margin-right: 10px;" class="btn btn-warning" href="register"
-          role="button">Register</a>
-             
-          {% endif %}
 
-      
+      {% else %}
+      <a style="margin-right: 10px;" class="btn btn-primary" href="/login" role="button">Login</a>
+      <a style="margin-right: 10px;" class="btn btn-warning" href="register" role="button">Register</a>
+
+      {% endif %}
+
+
       <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
@@ -60,50 +64,168 @@
   <!-- navbar ends  -->
 
 
-  <div class="container">
-    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-      <ol class="carousel-indicators">
-        <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-        <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-        <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
-      </ol>
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="../static/food1.jpg" class="d-block w-100" alt="...">
-          <div class="carousel-caption d-none d-md-block">
-            <h5>First slide label</h5>
-            <p>Some representative placeholder content for the first slide.</p>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <img src="../static/food2.jpg" class="d-block w-100" alt="...">
-          <div class="carousel-caption d-none d-md-block">
-            <h5>Second slide label</h5>
-            <p>Some representative placeholder content for the second slide.</p>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <img src="../static/food3.jpg" class="d-block w-100" alt="...">
-          <div class="carousel-caption d-none d-md-block">
-            <h5>Third slide label</h5>
-            <p>Some representative placeholder content for the third slide.</p>
-          </div>
+  <!-- <div class="container"> -->
+  <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+      <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+      <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="../static/food2.jpg" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5 style="font-size: xxx-large ;">WELCOME!</h5>
+          <p>NutriBABA Knows Everything About Your Meals.</p>
+          {% if session['email'] %}
+          <a href="/trackfood" class="btn btn-outline-success" role="button" aria-pressed="true">Track-Food</a>
+
+          {% else %}
+          <a href="/register" class="btn btn-outline-success" role="button" aria-pressed="true">Get Started</a>
+          {% endif %}
         </div>
       </div>
-      <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-      </a>
-      <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-      </a>
+      <div class="carousel-item">
+        <img src="../static/food3.jpg" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5 style="font-size: xxx-large ;">Nutrition</h5>
+          <p>The Process of Nourishing or Being Nourished</p>
+          <a href="/nutrition" class="btn btn-outline-success" role="button" aria-pressed="true">know More</a>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="../static/food1.jpg" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5 style="font-size: xxx-large ;">BMI</h5>
+          <p>Maintaining Optimal Body Mass Index (BMI) Levels Is Crucial.</p>
+          <a href="/mybmi" class="btn btn-outline-success" role="button" aria-pressed="true">Know More</a>
+        </div>
+      </div>
+
     </div>
+    <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
   </div>
+  <!-- </div> -->
+
+  <div style="background-color: skyblue;" class="container-fluid">
+    <br>
+    <h3
+      style="font-family: 'Raleway',sans-serif; font-size: 25px; font-weight: 500; line-height: 36px;  text-align: center;">
+      GET TO KNOW ALL THE NUTRIENTS PRESENT IN YOUR FOOD
+    </h3>
+    <br>
+  </div>
+
+  <br><br>
+  <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-2">
+      <i style="font-size: 70px;" class="fas fa-camera"></i>
+      <h1 style="font-size: xxx-large;
+        color: darkgreen;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">01</h1>
+      <p>Click a Picture of Your Food</p>
+      <br>
+    </div>
+    <div class="col-sm-1"></div>
+    <div class="col-sm-2">
+      <i style="font-size: 70px;" class="fas fa-upload"></i>
+      <h1 style="font-size: xxx-large;
+        color: darkgreen;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"> 02</h1>
+      <p>Upload the Picture</p>
+      <br>
+    </div>
+    <div class="col-sm-1"></div>
+    <div class="col-sm-2">
+      <i style="font-size: 70px;" class="fas fa-list"></i>
+      <h1 style="font-size: xxx-large;
+        color: darkgreen;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">03</h1>
+      <p>Know the Nutrients Present</p>
+      <br>
+    </div>
+    <div class="col-sm-2"></div>
+
+  </div>
+  <center>
+    <a href="/trackfood" class="btn btn-outline-primary" role="button" aria-pressed="true">CHECK OUT</a>
+  </center>
+  <br><br>
+
+  <div style="background-color: lightcyan;" class="container-fluid">
+    <br>
+    <div class="row">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-10">
+        <h3
+          style="font-family: 'Raleway',sans-serif; font-size: 25px; font-weight: 500; line-height: 36px;  text-align: center;">
+          WHY PROPER NUTRITION IS IMPORTANT &emsp;&emsp;&emsp;
+          <a href="/nutrition" class="btn btn-outline-success" role="button" aria-pressed="true">Know More</a>
+        </h3>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+    <br>
+  </div>
+<br><br>
+  <div class="container-fluid">
+    <br>
+    <h3
+      style="font-family: 'Raleway',sans-serif; font-size: 25px; font-weight: 500; line-height: 36px;  text-align: center;">
+      DO YOU KNOW YOUR BODY MASS INDEX(BMI) ?
+    </h3>
+    <br>
+  </div>
+  <br><br>
+  <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-2">
+      <i style="font-size: 70px;" class="fas fa-weight"></i>
+      <h1 style="font-size: xxx-large;
+      color: darkgreen;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">01</h1>
+      <p>Measure Your Height And Weight</p>
+      <br>
+    </div>
+    <div class="col-sm-1"></div>
+    <div class="col-sm-2">
+      <i style="font-size: 70px;" class="fas fa-list"></i>
+      <h1 style="font-size: xxx-large;
+      color: darkgreen;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"> 02</h1>
+      <p>Enter Your Height and Weight</p>
+      <br>
+    </div>
+    <div class="col-sm-1"></div>
+    <div class="col-sm-2">
+      <i style="font-size: 70px;" class="fas fa-lightbulb"></i>
+      <h1 style="font-size: xxx-large;
+      color: darkgreen;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">03</h1>
+      <p>Know Your BMI</p>
+      <br>
+    </div>
+    <div class="col-sm-2"></div>
+
+  </div>
+  <center>
+    <a href="/trackfood" class="btn btn-outline-primary" role="button" aria-pressed="true">CHECK OUT</a>
+  </center>
+  <br><br>
+
 
   <footer style="background-color:#191970;" class="page-footer font-small">
     <div style="color: white;" class="footer-copyright text-center py-3">© 2020 Copyright:
-      <a href="https://nutribaba.apps.pcfdev.in/"> nutribaba.apps.pcfdev.in</a>
+      <a href="https://nutribaba.apps.pcfdev.in//">nutribaba.apps.pcfdev.in</a>| All rights reserved |
+      <a href="/termsconditions" target="_blank">Terms of Service </a> | Privacy
     </div>
   </footer>
   <!-- Optional JavaScript; choose one of the two! -->
