@@ -23,9 +23,25 @@
             reader.readAsDataURL(event.target.files[0]);
         }
     </script>
+    <style>
+        p {
+            letter-spacing: -1px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: xxx-large;
+            color: darkgreen;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+    </style>
 </head>
 
 <body>
+
+    
     <!-- navbar starts -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-image: url('../static/navbg.png'); ">
         <header role="banner">
@@ -42,15 +58,15 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a style="color: white; font-size: 20px; margin-right: 10px;" class="nav-link" href="/">Home <span
+                    <a style="color: white; font-size: 20px; margin-right: 10px;" class="nav-link" href="/">HOME <span
                             class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a style="color: white; font-size: 20px; margin-right: 10px;" class="nav-link"
-                        href="/trackfood">Track-Food</a>
+                        href="/trackfood">TRACK-FOOD</a>
                 </li>
                 <li class="nav-item">
-                    <a style="color: white; font-size: 20px; margin-right: 10px;" class="nav-link" href="#">MyBMI</a>
+                    <a style="color: white; font-size: 20px; margin-right: 10px;" class="nav-link" href="/mybmi">MY-BMI</a>
                 </li>
             </ul>
 
@@ -79,10 +95,41 @@
         <div class="col-sm-1"></div>
         <div style="background-color: #85dcb8;" class="col-sm-10">
             <center>
+                <br>
+                <img src="../static/nutribabaicon.png"
+                    style="height: 200px; width: 220px; margin-top: 15px; margin-bottom: 15px;" alt="...">
+                <h2>TRACK FOOD</h2>
+                <br>
+
+                <br>
+                <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2">
+                        <h1>01</h1>
+                            <p>Click a Picture of Your Food</p>
+                            <br>
+                    </div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-2">
+                        <h1> 02</h1>
+                            <p>Upload the Picture</p>
+                            <br>
+                    </div>
+                    <div class="col-sm-1"></div>
+                    <div  class="col-sm-2">
+                        <h1>03</h1>
+                            <p >Know the Nutrients Present</p>
+                            <br>
+                    </div>
+                    <div class="col-sm-2"></div>
+                </div>
+                <br>
+            </center>
+            <center>
                 <form action="/upload_img" method="POST" enctype="multipart/form-data">
                     <br><br>
                     <div id="wrapper">
-                        <input type="file" name='foodimg' accept="image/*" onchange="preview_image(event)">
+                        <input type="file" name='foodimg' accept="image/*" onchange="preview_image(event)"><br>
                         <img id="output_image" style="width: 50%;height: 50%;" />
                     </div>
                     <br>
@@ -94,16 +141,17 @@
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
                     <strong>Something went wrong!</strong> you can try again in 10 secs.
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
+                        <span aria-hidden="true">&times;</span>
                     </button>
-                  </div>
+                </div>
                 {%else%}
-                <br><br><h3>Food Name  : <i>{{msg[0]}}</i> </h3><br>
+                <br><br>
+                <h3>Food Name : <i>{{msg[0]}}</i> </h3><br>
                 <h3>Contains : {{msg[1]//2}} Nutrients</h3><br>
                 <table style="width: 50%;" class="table table-hover">
                     <thead>
                         <tr>
-                            
+                            <th scope="col">S.No</th>
                             <th scope="col">Nutrient</th>
                             <th scope="col">Amount</th>
                         </tr>
@@ -112,10 +160,11 @@
                     <tbody>
                         {%if i%2==0 %}
                         <tr>
-                            
-                            <td>{{msg[i]}} {{i}}</td>
+                            <td>{{i//2}}</td>
 
-                            <td>{{msg[i+1]}} {{i+1}}</td>
+                            <td>{{msg[i]}}</td>
+
+                            <td>{{msg[i+1]}} </td>
                         </tr>
                         {%endif%}
                         {%endfor%}
@@ -124,6 +173,22 @@
                 {%endif%}
                 {%endif%}
             </center>
+            <div style="background-color: lightcyan;" class="container-fluid">
+                <br>
+                <div class="row">
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-10">
+                    <h3
+                      style="font-family: 'Raleway',sans-serif; font-size: 25px; font-weight: 500; line-height: 36px;  text-align: center;">
+                      KNOW MORE ABOUT NUTRITION AND HEALTH &emsp;&emsp;&emsp;
+                      <a href="/nutrition" class="btn btn-outline-success" role="button" aria-pressed="true">Click Here</a>
+                    </h3>
+                  </div>
+                  <div class="col-sm-1"></div>
+                </div>
+                <br>
+              </div>
+              <br><br>
         </div>
         <div class="col-sm-1"></div>
     </div>
@@ -154,7 +219,8 @@
 
     <footer style="background-color:#191970;" class="page-footer font-small">
         <div style="color: white;" class="footer-copyright text-center py-3">© 2020 Copyright:
-            <a href="https://yummeals.com/"> yummeals.com</a>
+            <a href="https://nutribaba.apps.pcfdev.in//">nutribaba.apps.pcfdev.in</a>| All rights reserved |
+            <a href="/termsconditions" target="_blank">Terms of Service </a> | Privacy
         </div>
     </footer>
     <!-- Optional JavaScript; choose one of the two! -->
