@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="shortcut icon" type="image/x-icon" href="../static/nutribabalogonew.png">
+    <title>NutriBABA</title>
+
+    <style>
+        p {
+            letter-spacing: -1px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: xxx-large;
+            color: darkgreen;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+    </style>
+    
+</head>
+
+<body>
+
+
+    <!-- navbar starts -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-image: url('../static/navbg.png'); ">
+        <header role="banner">
+            <a href="#">
+                <img style="height: 100px; width: 120px; padding-right: 5%;" src="../static/nutribabalogonew.png"
+                    alt="NutriBABA" />
+            </a>
+        </header>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a style="color: white; font-size: 20px; margin-right: 10px;" class="nav-link" href="/">HOME <span
+                            class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a style="color: white; font-size: 20px; margin-right: 10px;" class="nav-link"
+                        href="/trackfood">TRACK-FOOD</a>
+                </li>
+                <li class="nav-item">
+                    <a style="color: white; font-size: 20px; margin-right: 10px;" class="nav-link" href="/mybmi">MY-BMI</a>
+                </li>
+            </ul>
+
+            {% if session['email'] %}
+            <a style="margin-right: 10px;" class="btn btn-primary" href="/logout" role="button">Logout</a>
+
+            {% else %}
+            <a style="margin-right: 10px;" class="btn btn-primary" href="/login" role="button">Login</a>
+            <a style="margin-right: 10px;" class="btn btn-warning" href="register" role="button">Register</a>
+
+            {% endif %}
+
+
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+    <!-- navbar ends  -->
+
+
+    {% if session['email'] %}
+    <br><br>
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div style="background-color: #85dcb8;" class="col-sm-10">
+            <center>
+                <br>
+                <img src="../static/nutribabaicon.png"
+                    style="height: 200px; width: 220px; margin-top: 15px; margin-bottom: 15px;" alt="...">
+                <h2>BODY MASS INDEX</h2>
+                <br>
+                <br>
+                <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2">
+                        <h1>01</h1>
+                            <p>Measure Your Height And Weight</p>
+                            <br>
+                    </div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-2">
+                        <h1> 02</h1>
+                            <p>Fill Out The Form Below</p>
+                            <br>
+                    </div>
+                    <div class="col-sm-1"></div>
+                    <div  class="col-sm-2">
+                        <h1>03</h1>
+                            <p >Know Your BMI</p>
+                            <br>
+                    </div>
+                    <div class="col-sm-2"></div>
+                </div>
+                <br>
+
+            
+            <form style="width: 70%; margin-left: 15%; margin-right: 15%;"  >
+                <div class="form-group">
+                    <label for="feet">Height :</label>
+                    <input id="feet" maxlength="1" name="feet" size="1" style=" width: 6em !important;" placeholder="Feet" type="text" required>
+                    <input id="inch" maxlength="1" name="inch" size="1" style=" width: 6em !important;" placeholder="Inch" type="text" required>
+                </div>
+                <div class="form-group">
+                    <label for="weight">Weight :</label>
+                    <input type="text"  name="weight" id="weight" placeholder="KG" required>
+                </div>
+                    <button type="button" class="btn btn-success" onclick="calculate()">Calculate</button>
+                    <br>
+                <div class="form-group">
+                    <br>
+                    <label for="bmi">BMI :</label>
+                    <input type="text"  name="bmi" id="bmi" placeholder="Your BMI" readonly>
+                </div>           
+            </form>
+            <br><br>
+            <img src="../static/bmi.png" width="80%">
+            <br><br>
+            </center>
+            <br>
+            <h3 style="margin-left: 10%;margin-right: 10%;">WHAT IS BMI (BODY MASS INDEX) ?</h3>
+            <br><br>
+            <h5 style="margin-left: 10%;margin-right: 10%;">Body Mass Index (BMI) is a person’s weight in kilograms divided by the square of height in meters. A high BMI can be an indicator of high body fatness. BMI can be used to screen for weight categories that may lead to health problems but it is not diagnostic of the body fatness or health of an individual.
+            
+               <br><br>&emsp;&emsp;&emsp;&emsp;  BMI provides a simple numeric measure of a person's thickness or thinness, allowing health professionals to discuss weight problems more objectively with their patients. BMI was designed to be used as a simple means of classifying average sedentary (physically inactive) populations, with an average body composition. For such individuals, the value recommendations as of 2014 are as follows: a BMI from 18.5 up to 25 kg/m2 may indicate optimal weight, a BMI lower than 18.5 suggests the person is underweight, a number from 25 up to 30 may indicate the person is overweight, and a number from 30 upwards suggests the person is obese. Lean male athletes often have a high muscle-to-fat ratio and therefore a BMI that is misleadingly high relative to their body-fat percentage.</h5>
+            <br><br>
+        </div>
+        <div class="col-sm-1"></div>
+    </div>
+    <br><br>
+
+    {% else %}
+
+    <!-- if the user is not logged, this will specify him/her to login  -->
+    <br><br>
+    <div class="row">
+        <div class="col-sm-4"></div>
+        <div style="background-color: yellow;" class="col-sm-4">
+            <center>
+                <br>
+                <img src="../static/loginrequiredlogo.png"
+                    style="height: 220px; width: 200px; margin-top: 15px; margin-bottom: 15px;" alt="...">
+                <br><br>
+
+                <H1 style="color: red;">LOGIN REQUIRED!</H1><br>
+                <a style="margin-right: 10px;" class="btn btn-primary" href="/login" role="button">Login</a>
+                <br><br>
+            </center>
+        </div>
+        <div class="col-sm-4"></div>
+    </div>
+    <br><br><br><br><br>
+    {% endif %}
+
+    <footer style="background-color:#191970;" class="page-footer font-small">
+        <div style="color: white;" class="footer-copyright text-center py-3">© 2020 Copyright:
+            <a href="https://nutribaba.apps.pcfdev.in//">nutribaba.apps.pcfdev.in</a>| All rights reserved |
+            <a href="/termsconditions" target="_blank">Terms of Service </a> | Privacy
+        </div>
+    </footer>
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script>
+        function calculate(){
+        var f,i,w;
+        f=Number(document.getElementById("feet").value);
+        i=Number(document.getElementById("inch").value);
+        w=Number(document.getElementById("weight").value);
+        f=f/3.281;
+        i=i/39.37;
+        f=f+i;
+        w=w/(f**2);
+        document.getElementById("bmi").value= w.toFixed(2);
+        return true;
+        }
+        </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous">
+    </script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+    -->
+</body>
+
+</html>
