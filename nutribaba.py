@@ -130,7 +130,7 @@ def upload_img():
         for i in range(0, n):
             allnutrients.append(
                 data['foods'][0]['foodNutrients'][i]['nutrientName'])
-            allnutrients.append(data['foods'][0]['foodNutrients'][i]['nutrientNumber'] +
+            allnutrients.append(str(data['foods'][0]['foodNutrients'][i]['value']) +
                                 " "+data['foods'][0]['foodNutrients'][i]['unitName'])
         return render_template('trackfood.html', msg=allnutrients)
 
