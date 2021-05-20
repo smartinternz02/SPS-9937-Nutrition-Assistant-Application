@@ -12,7 +12,11 @@
     <link rel="shortcut icon" type="image/x-icon" href="../static/nutribabalogonew.png">
     <title>NutriBABA</title>
 
+    <!-- javascripts for pie chart  -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
 
+    <!-- javascript for image preview  -->
     <script type='text/javascript'>
         function preview_image(event) {
             var reader = new FileReader();
@@ -36,12 +40,17 @@
             font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
         }
 
+        .panel {
+            border: black;
+            border-style: solid;
+            border-width: 2px 5px 2px 5px;
+
+        }
     </style>
 </head>
 
 <body>
 
-    
     <!-- navbar starts -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-image: url('../static/navbg.png'); ">
         <header role="banner">
@@ -50,9 +59,10 @@
                     alt="YUMMEALS" />
             </a>
         </header>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+        <button style="background-color: white;" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span style="background-color: white;" class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -66,20 +76,16 @@
                         href="/trackfood">TRACK-FOOD</a>
                 </li>
                 <li class="nav-item">
-                    <a style="color: white; font-size: 20px; margin-right: 10px;" class="nav-link" href="/mybmi">MY-BMI</a>
+                    <a style="color: white; font-size: 20px; margin-right: 10px;" class="nav-link"
+                        href="/mybmi">MY-BMI</a>
                 </li>
             </ul>
-
             {% if session['email'] %}
             <a style="margin-right: 10px;" class="btn btn-primary" href="/logout" role="button">Logout</a>
-
             {% else %}
             <a style="margin-right: 10px;" class="btn btn-primary" href="/login" role="button">Login</a>
             <a style="margin-right: 10px;" class="btn btn-warning" href="register" role="button">Register</a>
-
             {% endif %}
-
-
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
@@ -88,7 +94,7 @@
     </nav>
     <!-- navbar ends  -->
 
-
+    <!-- this condition is to check whether the user is logged in or not  -->
     {% if session['email'] %}
     <br><br>
     <div class="row">
@@ -100,32 +106,34 @@
                     style="height: 200px; width: 220px; margin-top: 15px; margin-bottom: 15px;" alt="...">
                 <h2>TRACK FOOD</h2>
                 <br>
-
                 <br>
                 <div class="row">
                     <div class="col-sm-2"></div>
                     <div class="col-sm-2">
                         <h1>01</h1>
-                            <p>Click a Picture of Your Food</p>
-                            <br>
+                        <p>Click a Picture of Your Food</p>
+                        <br>
                     </div>
                     <div class="col-sm-1"></div>
                     <div class="col-sm-2">
                         <h1> 02</h1>
-                            <p>Upload the Picture</p>
-                            <br>
+                        <p>Upload the Picture</p>
+                        <br>
                     </div>
                     <div class="col-sm-1"></div>
-                    <div  class="col-sm-2">
+                    <div class="col-sm-2">
                         <h1>03</h1>
-                            <p >Know the Nutrients Present</p>
-                            <br>
+                        <p>Know the Nutrients Present</p>
+                        <br>
                     </div>
                     <div class="col-sm-2"></div>
                 </div>
                 <br>
             </center>
             <center>
+
+                <!-- this form takes image as an input and displays a preview of it before the submittion  -->
+
                 <form action="/upload_img" method="POST" enctype="multipart/form-data">
                     <br><br>
                     <div id="wrapper">
@@ -136,6 +144,10 @@
                     <button type="submit" class="btn btn-warning">Upload</button>
                     <br><br>
                 </form>
+
+                <!-- the below section is to be displayed only when any image is searched, hence the below if condition looks after that  -->
+                <!-- the variable "msg" is passed as a parameter from the python file after a successfull search -->
+
                 {%if msg%}
                 {%if msg==0%}
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -144,51 +156,118 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                {%elif msg['meta']['nutrients']==0%}
+                <br><br>
+                <h3>Food Name : <i>{{msg['meta']['fooditem']}}</i> </h3><br>
+                <p style="color: red;">The Uploaded Photo Must Contain a Food Item</p>
+                <br><br><br>
                 {%else%}
                 <br><br>
-                <h3>Food Name : <i>{{msg[0]}}</i> </h3><br>
-                <h3>Contains : {{msg[1]//2}} Nutrients</h3><br>
-                <table style="width: 50%;" class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">S.No</th>
-                            <th scope="col">Nutrient</th>
-                            <th scope="col">Amount</th>
-                        </tr>
-                    </thead>
-                    {%for i in range(2,msg[1]+1)%}
-                    <tbody>
-                        {%if i%2==0 %}
-                        <tr>
-                            <td>{{i//2}}</td>
+                <h3>Food Name : <i>{{msg['meta']['fooditem']}}</i> </h3><br>
+                <!-- <h3>Contains : {{msg['meta']['nutrients']}} Nutrients</h3><br> -->
+                <p>The recognized food item contains the following nutrients.</p>
+                <div class="container">
+                    <div class="chart" id="piechart" style="width: auto; border: black;border-width: 2px;">
+                        <script style="width: auto;">
+                            var graphs = {{plot | safe}};
+                            Plotly.plot('piechart', graphs, {});
+                        </script>
+                    </div>
+                    <br>
+                    <p>Note : to exclude any nutrient from the pie chart click on their colored squares</p>
 
-                            <td>{{msg[i]}}</td>
+                    <br>
+                    <h6>LIST OF ALL NUTRIENTS AND THEIR AMOUNTS PRESENT PER 100 GMs OF SERVING</h6><br>
+                    <div class="row">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-8">
 
-                            <td>{{msg[i+1]}} </td>
-                        </tr>
-                        {%endif%}
-                        {%endfor%}
-                    </tbody>
-                </table>
+
+
+
+                            {%set a=1%}
+                            {%for data,value in msg.items()%}
+
+                            {%if data=='meta'%}
+
+                            {%elif data=='Essentials'%}
+
+                            {% for i,j in value.items() %}
+                            <div class="panel">
+                                <div class="panel-body">
+
+                                    <p style="text-align: left; margin-left: 6%;"><b>{{i}}</b></p>
+                                    <h6 style="text-align: right;  margin-right: 6%;">{{j}}</h6>
+
+                                </div>
+                            </div>
+
+                            {%endfor%}
+
+                            {%else%}
+                            <div class="panel" data-toggle="collapse" data-target="#{{data}}" aria-expanded="false"
+                                aria-controls="collapseExample">
+                                <div class="panel-body">
+                                    <p style="text-align: left; margin-left: 6%;"><b>{{data}}</b>&nbsp;(Click to Expand)
+                                    </p>
+                                    <h6 style="text-align: right;  margin-right: 6%;">{{value['total']}}</h6>
+                                </div>
+                            </div>
+                            <div class="collapse" id="{{data}}">
+
+                                <table style="width: 80%;" class="table table-hover">
+                                    <tbody>
+                                        {% for i,j in value.items() %}
+                                        {%if i=='total'%}
+                                        {%else%}
+                                        <tr>
+
+
+
+                                            <td>{{i}}</td>
+
+                                            <td>
+                                                <center>{{j}}</center>
+                                            </td>
+
+                                        </tr>
+
+                                        {%endif%}
+                                        {%endfor%}
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                            {%endif%}
+                            {%endfor%}
+                            <br><br>
+                        </div>
+                        <div class="col-sm-2">
+                        </div>
+                    </div>
+                </div>
                 {%endif%}
                 {%endif%}
             </center>
+            <br>
             <div style="background-color: lightcyan;" class="container-fluid">
                 <br>
                 <div class="row">
-                  <div class="col-sm-1"></div>
-                  <div class="col-sm-10">
-                    <h3
-                      style="font-family: 'Raleway',sans-serif; font-size: 25px; font-weight: 500; line-height: 36px;  text-align: center;">
-                      KNOW MORE ABOUT NUTRITION AND HEALTH &emsp;&emsp;&emsp;
-                      <a href="/nutrition" class="btn btn-outline-success" role="button" aria-pressed="true">Click Here</a>
-                    </h3>
-                  </div>
-                  <div class="col-sm-1"></div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-10">
+                        <h3
+                            style="font-family: 'Raleway',sans-serif; font-size: 25px; font-weight: 500; line-height: 36px;  text-align: center;">
+                            KNOW MORE ABOUT NUTRITION AND HEALTH &emsp;&emsp;&emsp;
+                            <a href="/nutrition" class="btn btn-outline-success" role="button" aria-pressed="true">Click
+                                Here</a>
+                        </h3>
+                    </div>
+                    <div class="col-sm-1"></div>
                 </div>
                 <br>
-              </div>
-              <br><br>
+            </div>
+            <br><br>
         </div>
         <div class="col-sm-1"></div>
     </div>
