@@ -3,3 +3,4 @@ requests
 flask_mysqldb
 jsonify
 ibm-watson
+plotly
