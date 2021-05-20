@@ -9,8 +9,6 @@ import hashlib
 import plotly
 import plotly.graph_objs as go
 
-import pandas as pd
-import numpy as np
 
 app = Flask(__name__)
 app.config['MYSQL_HOST'] = 'remotemysql.com'
@@ -254,24 +252,7 @@ def getchart():
     return render_template('demo.html', plot=pie)
 
 
-def create_plot():
 
-    N = 40
-    x = np.linspace(0, 1, N)
-    y = np.random.randn(N)
-    # creating a sample dataframe
-    df = pd.DataFrame({'x': [3, 4, 2, 5], 'y': [3, 3, 3, 3]})
-
-    data = [
-        go.Pie(
-            labels=[3, 4, 2, 5],  # assign x as the dataframe column 'x'
-            values=[3, 3, 3, 3]
-        )
-    ]
-
-    graphJSON = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)
-
-    return graphJSON
 
 
 if __name__ == '__main__':
