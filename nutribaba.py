@@ -123,7 +123,8 @@ def upload_img():
         except:
             return render_template('trackfood.html', msg=0)
         if fooditem.lower() == 'non-food':
-            allnutrients = []
+            allnutrients = {'meta': {}, 'Essentials': {}, 'Minerals': {
+            }, 'Vitamins': {}, 'Fattyacids': {}, 'Carotenoids': {}}
             allnutrients['meta']['fooditem'] = fooditem.upper()
             allnutrients['meta']['nutrients'] = 0
             return render_template('trackfood.html', msg=allnutrients)
