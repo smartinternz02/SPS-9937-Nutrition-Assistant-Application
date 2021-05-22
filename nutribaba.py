@@ -124,8 +124,8 @@ def upload_img():
             return render_template('trackfood.html', msg=0)
         if fooditem.lower() == 'non-food':
             allnutrients = []
-            allnutrients.append(fooditem.upper())
-            allnutrients.append(0)
+            allnutrients['meta']['fooditem'] = fooditem.upper()
+            allnutrients['meta']['nutrients'] = 0
             return render_template('trackfood.html', msg=allnutrients)
         else:
             # using usda api to get the nutrients of the food item
