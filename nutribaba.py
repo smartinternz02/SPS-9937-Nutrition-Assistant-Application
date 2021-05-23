@@ -41,13 +41,23 @@ def uploaddata():
             session["username"] = name
             pword = hashlib.md5(pword.encode())
             pword = pword.hexdigest()
-            print(pword)
+            
             cursor = mysql.connection.cursor()
-            cursor.execute(
-                'INSERT INTO userdetails VALUES (% s, % s, % s)', (name, email, pword))
+            cursor.execute('SELECT * FROM userdetails WHERE email= % s', (email,))
             mysql.connection.commit()
-            msg = 'You have successfully registered !'
-    return render_template('login.html', msg=msg)
+            userexist = cursor.fetchone()
+            if userexist != None:
+                msg = 'User with this Email already exist. Please Login'
+                return render_template('register.html', msg=msg)
+
+                
+            else:
+                cursor = mysql.connection.cursor()
+                cursor.execute(
+                    'INSERT INTO userdetails VALUES (% s, % s, % s)', (name, email, pword))
+                mysql.connection.commit()
+                msg = 'You have successfully registered !'
+                return render_template('login.html', msg=msg)
 
 
 @app.route('/login')
