@@ -47,7 +47,7 @@ def uploaddata():
                 'INSERT INTO userdetails VALUES (% s, % s, % s)', (name, email, pword))
             mysql.connection.commit()
             msg = 'You have successfully registered !'
-    return render_template('register.html', msg=msg)
+    return render_template('login.html', msg=msg)
 
 
 @app.route('/login')
